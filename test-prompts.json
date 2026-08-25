@@ -1,0 +1,76 @@
+{
+  "skill": "key-action-design",
+  "version": "0.1.0",
+  "test_cases": [
+    {
+      "id": "should-trigger-01",
+      "type": "should_trigger",
+      "prompt": "我们销售团队销冠和普通销售业绩差3倍，大家跑的流程明明一样，怎么把销冠的做法复制给所有人？",
+      "expected_behavior": "调用 key-action-design，先过前置三闸门（确认是还原、有差距公式/要素、有明星员工），然后按四步骤引导：定位差距要素→展示原有流程→三重过滤→还原关键动作并定义三栏",
+      "notes": "正面场景：复制销冠做法，最典型的触发语言"
+    },
+    {
+      "id": "should-trigger-02",
+      "type": "should_trigger",
+      "prompt": "帮我萃取一下我们明星店长的关键动作，让其他店长照着做",
+      "expected_behavior": "调用 key-action-design，明确这是'还原已存在的事实行为'而非设计新方案，进入四步骤流程",
+      "notes": "正面场景：直接出现'萃取''关键动作'术语"
+    },
+    {
+      "id": "should-trigger-03",
+      "type": "should_trigger",
+      "prompt": "我们物业费收缴率一直上不去，有几个明星管家催缴转化率特别高，能不能把他们的做法变成标准动作？",
+      "expected_behavior": "调用 key-action-design，锁定差距要素（收缴率/催缴转化率），还原明星管家的关键动作（可参照物业费案例：面访/社群/活动/推送），最后 IPO 验核",
+      "notes": "正面场景：与书中物业费案例同构"
+    },
+    {
+      "id": "should-trigger-04",
+      "type": "should_trigger",
+      "prompt": "这份 SOP 员工就是做不到位：'及时跟进客户、做好现场服务、注意沟通方式'，帮我看看问题出在哪",
+      "expected_behavior": "调用 key-action-design 的诊断模式：指出动作描述不精准（缺可衡量指标，违反'动词+名词+可衡量指标'），检验标准=执行者能否不假外援独立执行，并给出改写示范",
+      "notes": "正面场景：诊断已有动作链/SOP"
+    },
+    {
+      "id": "should-not-trigger-01",
+      "type": "should_not_trigger",
+      "prompt": "客户回访这件事我们公司从来没人做过，帮我从零设计一套全新的回访方案",
+      "expected_behavior": "不应调用 key-action-design（或调用后立即通过闸门A退出）：这是设计谁都不曾做过的新行为，属于创新方案/绩效杠杆，不是还原",
+      "notes": "诱饵：还原vs创新二分，本 skill 的核心边界"
+    },
+    {
+      "id": "should-not-trigger-02",
+      "type": "should_not_trigger",
+      "prompt": "帮我写一条朋友圈广告文案，产品是儿童益生菌，目标人群是3-8岁孩子的妈妈",
+      "expected_behavior": "不应调用 key-action-design；这是广告文案创作场景，应触发 high-ctr-copy skill",
+      "notes": "跨 skill 混淆测试：用户体系中另一个 skill（high-ctr-copy）的领地"
+    },
+    {
+      "id": "should-not-trigger-03",
+      "type": "should_not_trigger",
+      "prompt": "动作标准都有了，可员工就是不愿意执行，怎么设计激励方案让大家动起来？",
+      "expected_behavior": "不应调用 key-action-design：这是'不愿做'的激励/意愿问题，本 skill 只解决'不知怎么做'的行为复制问题",
+      "notes": "诱饵：能力复制 vs 意愿激励"
+    },
+    {
+      "id": "edge-01",
+      "type": "edge_case",
+      "prompt": "我们是全新业务，团队里还没有谁做得特别好，帮我设计一套最佳销售动作",
+      "expected_behavior": "字面像'设计关键动作'，但缺少萃取对象（无明星员工）。应通过闸门C判定：本 skill 不适用，告知用户这是创新方案场景，或等积累出绩优实践后再还原",
+      "notes": "边界：触发词命中但前置条件不满足，考验 B 段而非 A2"
+    },
+    {
+      "id": "edge-02",
+      "type": "edge_case",
+      "prompt": "帮我把公司跨部门的协作流程梳理成一张泳道图，理清各部门职责",
+      "expected_behavior": "不应调用 key-action-design：这是组织层/流程层的流程梳理，本 skill 只处理岗位层的个人操作流程且必须挂在差距要素上",
+      "notes": "边界：流程层级混淆（岗位层 vs 组织层）"
+    },
+    {
+      "id": "edge-03",
+      "type": "edge_case",
+      "prompt": "我这门课有十几个知识点，帮我组织成一个像 GAPS 那样的模型，让学员记得住",
+      "expected_behavior": "不应调用 key-action-design；这是把知识结构化为课程模型的场景，应触发 knowledge-modeling skill。区分点：本 skill 产出'岗位动作定义表'，那个产出'课程知识模型'",
+      "notes": "跨 skill 混淆测试：用户体系中 knowledge-modeling 的领地，且'GAPS'来自同一作者体系易混"
+    }
+  ]
+}
