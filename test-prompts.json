@@ -1,6 +1,6 @@
 {
   "skill": "key-action-design",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "test_cases": [
     {
       "id": "should-trigger-01",
@@ -71,6 +71,28 @@
       "prompt": "我这门课有十几个知识点，帮我组织成一个像 GAPS 那样的模型，让学员记得住",
       "expected_behavior": "不应调用 key-action-design；这是把知识结构化为课程模型的场景，应触发 knowledge-modeling skill。区分点：本 skill 产出'岗位动作定义表'，那个产出'课程知识模型'",
       "notes": "跨 skill 混淆测试：用户体系中 knowledge-modeling 的领地，且'GAPS'来自同一作者体系易混"
+    },
+    {
+      "id": "output-quality-01",
+      "type": "output_quality",
+      "prompt": "我们 12 家门店，店长成交率从 15% 到 42% 不等，想把头部店长的做法复制给尾部的。",
+      "expected_behavior": "过三个闸门 → 引导定位差距要素（如成交率拆到送样次数）→ 三重过滤表（高频/重要/可控）→ 产出《关键动作定义表》（动作/要求/工具/解释 四栏齐全，4-7 个动作，命名≤9 字）→ IPO 验核 + 5 条质检结论",
+      "notes": "新增：仓库原有 test-prompts.json 但无 test-results.md，此例补 dim8 实测"
+    },
+    {
+      "id": "resource-fallback-01",
+      "type": "edge_case",
+      "prompt": "三重验证的结论和常见失败模式清单在哪儿？给我看看。",
+      "expected_behavior": "就地给出失败模式清单（动作模糊/混角色/把结果当动作/超 7 个/命名超 11 字），不得只指向 ../verified.md 这类装完即断的相对路径",
+      "notes": "新增：../verified.md 位于仓库上层，单 skill 安装后不可达——验证引用断裂已修复"
+    },
+    {
+      "id": "output-quality-02",
+      "type": "output_quality",
+      "prompt": "这条链员工记不住，帮我看看：1.提前预约上门 2.见到业主先寒暄 3.说明来意 4.递送服务报告 5.询问居住体验 6.解释收费标准 7.回应异议 8.引导缴费 9.加微信维护关系",
+      "expected_behavior": "诊断模式产出质量：识别动作数 9 个 >7 的根因是颗粒度不一致 → 合并相似动作（如 2/3/5 合并为「上门面访」）而非硬删 → 输出 ≤7 个动作的修订版动作定义表 + 5 条质检逐项结论",
+      "notes": "新增：补诊断模式的产出质量用例（原用例只测触发，不测诊断产出）"
     }
-  ]
+  ],
+  "optimized_by": "w32394045-dotcom @ auto-optimize/20260927-1437"
 }

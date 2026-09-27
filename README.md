@@ -23,22 +23,32 @@
 | 文件 | 适合谁 | 怎么用 |
 |---|---|---|
 | **PROMPT.md** ⭐ | 所有人（任意聊天 AI） | 复制粘贴到对话框，即用即走 |
-| **SKILL.md** | Claude Code / Cursor / WorkBuddy 等 Agent 工具用户 | 安装到 skills 目录，长期驻留 |
+| **SKILL.md** | 任何 skills-compatible Agent 工具（Claude Code / Cursor / Codex / WorkBuddy 等） | 安装到 skills 目录，长期驻留 |
 
-### WorkBuddy 用户安装
+### Agent 工具安装（任意 runtime）
+
+```bash
+git clone --depth 1 https://github.com/wangzhigang-0913/key-action-design.git
+cp -r key-action-design <skills-dir>/          # SKILL.md 需在目录根部
+```
+
+`<skills-dir>` = 你所用的 skills-compatible runtime 的用户级 skills 目录：
+
+| Runtime | 用户级 skills 目录 |
+|---|---|
+| Claude Code | `~/.claude/skills/` |
+| WorkBuddy | `~/.workbuddy/skills/` |
+| 其他 runtime (Cursor / Codex / OpenClaw / Hermes 等) | 见该 runtime 文档；只要目录内含 `SKILL.md` 即可被加载 |
+
+项目级：放进 `<project>/.<runtime>/skills/`。
+
+### WorkBuddy 快捷导入
 
 对话框发送：
 ```
 /skillsimport https://github.com/wangzhigang-0913/key-action-design
 ```
 或在【技能管理】→【从 Git 仓库导入】粘贴本仓库地址。
-
-### Claude Code / Cursor 用户
-
-```bash
-git clone --depth 1 https://github.com/wangzhigang-0913/key-action-design.git
-cp -r key-action-design ~/.claude/skills/key-action-design   # SKILL.md 需在目录根部
-```
 
 ## 这套方法管什么、不管什么
 
